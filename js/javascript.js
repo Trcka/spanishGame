@@ -1,4 +1,14 @@
-
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAUhckuI7eonmR3kNmUC3vBOrnoz2NLscY",
+    authDomain: "yeah-8ac6b.firebaseapp.com",
+    databaseURL: "https://yeah-8ac6b.firebaseio.com",
+    projectId: "yeah-8ac6b",
+    storageBucket: "yeah-8ac6b.appspot.com",
+    messagingSenderId: "1051077492767"
+  };
+  var database = firebase.database();
+  var app = firebase.initializeApp(config, "app");
 //First screen on click
 $("#go").on("click", function(){
 	//Save the name feild to firebase
@@ -29,6 +39,12 @@ $('input[name=userImage]').change(function(ev) {
 document.getElementById('file-input').addEventListener('change', readURL, true);
 function readURL(){
     var file = document.getElementById("file-input").files[0];
+    var uploader = document.getElementById("file-input");
+
+    var storageRef = firebase.storage(app).ref(file.name);
+    storageRef.put(file);
+
+
     var reader = new FileReader();
     reader.onloadend = function(){
         document.getElementById('image').style.backgroundImage = "url(" + reader.result + ")";        
@@ -38,6 +54,9 @@ function readURL(){
     }else{
     }
 }
+
+// on change function child snapshot
+// $("word1").html(database.child)
 
 //If you click a word to learn the rest disappear
 $("#word1").on("click", function(){
